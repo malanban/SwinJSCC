@@ -115,6 +115,16 @@ class SwinJSCC_Decoder(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x, snr, model):
+        if model == 'w/o_JSCC':
+            for i_layer, layer in enumerate(self.layers):
+                x = layer(x)
+            B, L, N = x.shape
+            x = x.reshape(B, self.H, self.W, N).permute(0, 3, 1, 2)
+            print("Decoded Matrix")
+            print(x)
+            print("--------------------------------------------------------------------------")
+            return x
+
         if model == 'SwinJSCC_w/o_SAandRA':
             x = self.head_list(x)
             for i_layer, layer in enumerate(self.layers):

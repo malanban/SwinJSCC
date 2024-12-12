@@ -280,6 +280,12 @@ class SwinJSCC_Encoder(nn.Module):
             print(x.mean())
         x = self.norm(x)
 
+        if model == 'w/o_JSCC':
+            print("Encoded Matrix")
+            print(x)
+            print("--------------------------------------------------------------------------")
+            return x
+
         if model == 'SwinJSCC_w/o_SAandRA':
             x = self.head_list(x)
             return x
